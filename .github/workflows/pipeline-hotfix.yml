@@ -1,0 +1,51 @@
+name: Deploy to hotfix
+on:
+  push:
+    branches: [ hotfix ]
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - name: Use Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: '14.x'
+    - shell: bash
+      run: |
+        npm install
+        npm run lint
+  test:
+    needs: 
+      - lint
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - name: Use Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: '14.x'
+    - shell: bash
+      run: |
+        npm install
+        npm run test
+  build:
+    needs: 
+      - test
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.TOKEN }}
+    - shell: bash
+      run: |
+        cp -R ./src/* ./environments/hotfix/
+        git config user.name github-actions
+        git config user.email github-actions@github.com
+        git add .
+        git commit -m "deploy [skip ci]"
+        git push
