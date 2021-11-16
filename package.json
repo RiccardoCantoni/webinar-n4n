@@ -1,0 +1,23 @@
+{
+  "name": "webinar-n4n",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --testPathPattern=src/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RiccardoCantoni/webinar-n4n.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RiccardoCantoni/webinar-n4n/issues"
+  },
+  "homepage": "https://github.com/RiccardoCantoni/webinar#readme",
+  "devDependencies": {
+    "jest": "^27.1.1"
+  }
+}
